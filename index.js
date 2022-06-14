@@ -7,10 +7,14 @@ const app = express();
 // Conectar a la bd
 conectarDB();
 
+// Se habilita express.json
+app.use(express.json({ extended: true }));
+
 // Se crea el puerto
 const PORT = process.env.PORT || 4000;
 
 // Rutas
+app.use('/api/users', require('./routes/users'));
 
 
 // Arrancar el servidor
