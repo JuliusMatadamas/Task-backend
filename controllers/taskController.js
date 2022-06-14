@@ -3,6 +3,7 @@ const bcryptjs = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
+// Crear tarea
 exports.taskCreate = async (req, res) => {
     // Revisar si hay errores en el request
     const errors = validationResult(req);
@@ -17,9 +18,22 @@ exports.taskCreate = async (req, res) => {
         // Crear la tarea
         const task = new Task(req.body);
 
+        // Guardar el owner de la tarea
+        task.owner = req.user.id;
+
+        // Se guarda la tarea
         task.save();
 
         res.json(task);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(`Error: ${error}`);
+    }
+}
+
+// Leer tarea
+exports.taskRead = async (req, res) => {
+    try {
     } catch (error) {
         console.log(error);
         res.status(400).send(`Error: ${error}`);
