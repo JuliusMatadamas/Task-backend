@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 // CREATE
 router.post('/', auth, [
-    check('title', 'The title is required.').notEmpty().isString(),
+    check('title', 'The title is required.').not().isEmpty(),
     check('start', 'The start date is required and must be a valid date.').isDate()
 ], taskController.taskCreate);
 
@@ -14,6 +14,10 @@ router.post('/', auth, [
 router.get('/', auth, taskController.taskRead);
 
 // UPDATE
+router.put('/:id', auth, [
+    check('title', 'The title is required.').not().isEmpty(),
+    check('start', 'The start date is required and must be a valid date.').isDate()
+], taskController.taskUpdate);
 
 // DELETE
 
