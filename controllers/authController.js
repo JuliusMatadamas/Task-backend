@@ -48,3 +48,13 @@ exports.authUser = async (req, res) => {
         res.status(400).send(`Error: ${error}`);
     }
 }
+
+exports.authVerify = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        res.json({user});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({msg: 'An error has occurred!'});
+    }
+}
